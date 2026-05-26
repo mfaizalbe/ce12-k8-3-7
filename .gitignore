@@ -1,0 +1,9 @@
+.DS_Store
+
+.kube/
+.aws/
+
+*.pem
+*.key
+*.tfstate
+.terraform/
