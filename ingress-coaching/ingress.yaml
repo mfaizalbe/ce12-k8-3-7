@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: faizal-echo-app-ingress
+  namespace: faizal-eks-activity
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    external-dns.alpha.kubernetes.io/hostname: "faizal-echoapp.sctp-sandbox.com" # Route53 Record
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "faizal-echoapp.sctp-sandbox.com" # Route53 Record
+      secretName: faizal-sctp-tls
+  rules:
+  - host: "faizal-echoapp.sctp-sandbox.com" # Route53 Record
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: faizal-echo-service
+            port:
+              number: 80
