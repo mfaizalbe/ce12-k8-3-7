@@ -1,0 +1,21 @@
+---
+# Source: faizal-app/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "release-name-faizal-app-test-connection"
+  labels:
+    helm.sh/chart: faizal-app-1.0.0
+    app.kubernetes.io/name: faizal-app
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['release-name-faizal-app:80']
+  restartPolicy: Never
